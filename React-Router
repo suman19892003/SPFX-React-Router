@@ -1,0 +1,65 @@
+//First Install React Router
+npm i react-router-dom -g
+
+//Create SPFX solution and in main webaprt use below script and create child component
+
+import * as React from 'react';
+import styles from './Landing.module.scss';
+import { ILandingProps } from './ILandingProps';
+import { escape } from '@microsoft/sp-lodash-subset';
+
+import ClaimsSystemID from './ClaimsSystemID';
+import VendorSystem from './VendorSystem';
+import ClaimsFinanacial from './ClaimsFinanacial';
+
+import { HashRouter, Route } from "react-router-dom";
+import { Nav, INavStyles, INavLinkGroup } from 'office-ui-fabric-react/lib/Nav';
+import { Stack, IStackTokens } from 'office-ui-fabric-react/lib/Stack';
+
+const navStyles: Partial<INavStyles> = { root: { width: 300 } };
+const stackTokens: IStackTokens = { childrenGap: 40 };
+
+const navLinkGroups: INavLinkGroup[] = [
+  {
+    name: 'React Components',
+    links: [
+      {
+        key: 'claims',
+        name: 'Claims System ID Request',
+        url: '#/claims',
+      },
+      {
+        key: 'claimsfinancial',
+        name: 'Claims Financial ID Request',
+        url: '#/claimsfinancial',
+      },
+      {
+        key: 'globalaclaims',
+        name: 'Global Claims Center ID Request',
+        url: '#/globalaclaims',
+      }
+    ],
+  }
+];
+
+export default class Landing extends React.Component<ILandingProps, {}> {
+  public render(): React.ReactElement<ILandingProps> {
+    return (
+      <div className={ styles.landing }>
+
+    <h2>This is LM landling home page.</h2>
+        <Stack horizontal tokens={stackTokens}>
+          <Nav styles={navStyles} ariaLabel="Nav example similiar to one found in this demo page" groups={navLinkGroups} />
+          <HashRouter>
+            {/* <Route path="/" exact component={Landing}></Route> */}
+            <Route path="/claims"  component={ClaimsSystemID}></Route>
+            <Route path="/claimsfinancial"  component={ClaimsFinanacial}></Route>
+            <Route path="/globalaclaims"  component={GlobalClaims}></Route>
+          </HashRouter>
+        </Stack>
+      </div>
+    );
+  }
+}
+
+
