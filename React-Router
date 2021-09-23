@@ -1,6 +1,9 @@
 //First Install React Router
 npm i react-router-dom -g
 
+//Pass parameter to other component in Route link
+<Route path="/NewPage2" render={(props)=>{<NewPage2 details='detail for child comp' {...props}/>}}/>
+
 //Create SPFX solution and in main webaprt use below script and create child component
 
 import * as React from 'react';
